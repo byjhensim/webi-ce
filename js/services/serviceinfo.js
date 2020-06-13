@@ -28,10 +28,24 @@ class CustomElementServiceInfo {
     };
   }
 
+  getVisualization(id){
+    for (var i=0; i < this.visualizations.length; i++) {
+      if (this.visualizations[i].id == id) {
+        return this.visualizations[i];
+      }
+    }
+    logger.logInfo("ERROR: Visualization ID " + id + " is unknown");
+  }
+
   getVisualizations() {
     return {
       visualizations: this.visualizations}
       }
+
+  getVisualizationType(id) {
+    const viz = this.getVisualization(id);
+    return viz.type;
+  }
 }
 
 module.exports = CustomElementServiceInfo;

@@ -27,6 +27,15 @@ module.exports = function () {
     logger.logInfo("Sent Visualizations");
   })
 
+router.post("/visualizations/:vizId/sample", function(req, res){
+  logger.logInfo("Get Sample");
+  const sampleId = req.params.vizId;
+  const sample = service.getSample(sampleId);
+  res.writeHead(200, {"Content-Type":"image/png"});
+  res.end(sample, "binary");
+
+  logger.logInfo("End Sample");
+})
 
 
   return router;
