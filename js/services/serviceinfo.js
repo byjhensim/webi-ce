@@ -9,13 +9,8 @@ class CustomElementServiceInfo {
         id:"sankey",
         name:"Google Sankey Chart",
         description: "Visualization used to depict a flow from one set of values to another",
-        type: "sankey"
-      },
-      {
-        id:"geocharts",
-        name:"Google GeoChart",
-        description: "Map visualization",
-        type:"geocharts"
+        type: "sankey",
+        package: "sankey"
       }
     ];
 
@@ -45,6 +40,11 @@ class CustomElementServiceInfo {
   getVisualizationType(id) {
     const viz = this.getVisualization(id);
     return viz.type;
+  }
+
+  getVisualizationPackage(id){
+    const viz = this.getVisualization(id);
+    return viz.package;
   }
 }
 
