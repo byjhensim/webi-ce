@@ -20,19 +20,27 @@ class CustomElementService {
     return this.serviceInfo;
   }
 
-  getSample(sampleId) {
+  getSample(vizId) {
     let sampleViz;
-    const type = this.serviceInfo.getVisualizationType(sampleId);
+    const type = this.serviceInfo.getVisualizationType(vizId);
     if (fs.existsSync("./js/charts/" + type +"/icon.png")) {
       sampleViz = fs.readFileSync("./js/charts/" + type +"/icon.png");
     }
     return sampleViz;
   }
 
-  getFeeds(sampleId) {
-    const type = this.serviceInfo.getVisualizationType(sampleId);
-    const feeds = require("../charts/" + type +"/feeds").feeds;
+  getFeeds(vizId) {
+    const type = this.serviceInfo.getVisualizationType(vizId);
+    const feeds = require("../charts/" + type + "/feeds").feeds;
+
     return feeds;
+  }
+
+  getSettings(vizId) {
+    const type = this.serviceInfo.getVisualizationType(vizId);
+    const settings = require("../charts/" + type + "/settings").settings;
+
+    return settings;
   }
 
   getRender(renderInfo) {

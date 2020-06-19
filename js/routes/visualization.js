@@ -29,8 +29,8 @@ module.exports = function () {
 
 router.post("/visualizations/:vizId/sample", function(req, res){
   logger.logInfo("Get Sample");
-  const sampleId = req.params.vizId;
-  const sample = service.getSample(sampleId);
+  const vizId = req.params.vizId;
+  const sample = service.getSample(vizId);
   res.writeHead(200, {"Content-Type":"image/png"});
   res.end(sample, "binary");
 
@@ -39,12 +39,22 @@ router.post("/visualizations/:vizId/sample", function(req, res){
 
 router.get("/visualizations/:vizId/feeds", function(req, res){
   logger.logInfo("Get Feeds Definitions");
-  const sampleId = req.params.vizId;
-  const feeds = service.getFeeds(sampleId);
+  const vizId = req.params.vizId;
+  const feeds = service.getFeeds(vizId);
   res.setHeader("Content-Type", "application/json");
   res.send(JSON.stringify(feeds));
 
   logger.logInfo("Sent Feeds Definitions");
+})
+
+router.get("/visualizations/:vizId/settings", function(req, res){
+  logger.logInfo("Get Settings");
+  const vizId = req.params.vizId;
+  const settings = service.getSettings(vizId);
+  res.setHeader("Content-Type", "application/json");
+  res.send(JSON.stringify(settings));
+
+  logger.logInfo("Sent Settings");
 })
 
 router.post("/visualizations/:vizId/render", function(req, res){
@@ -57,7 +67,9 @@ router.post("/visualizations/:vizId/render", function(req, res){
       width: req.body.width
     },
     feeding: req.body.feeding,
-    data: req.body.data
+    data: req.body.data,
+    settings: req.body.settings,
+    palette: req.body.palette
     }
 
   const renderer = service.getRender(renderInfo);

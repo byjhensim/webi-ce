@@ -43,8 +43,8 @@ class CustomElementServiceInfo {
   }
 
   getVisualizationPackage(id){
-    const viz = this.getVisualization(id);
-    return viz.package;
+    const gPackage = this.getVisualization(id);
+    return gPackage.package;
   }
 }
 

@@ -1,21 +1,22 @@
 "use strict";
 
 const DataHandler = require("../../utils/datahandler");
+const SettingsHandler = require("../settingshandler");
 const CR = String.fromCharCode(13);
 
 class OptionsSankeyBuilder {
-  constructor(renderInfo){
+  constructor(serviceInfo,renderInfo){
     this.DataHandler = new DataHandler(renderInfo);
+    const type = serviceInfo.getVisualizationType(renderInfo.id);
+    const defaultSettings = require("./settings").settings;
+    this.SettingsHandler = new SettingsHandler(defaultSettings, renderInfo.settings)
   }
 
   buildData() {
     let dataTable = '';
     const sourceCategory = this.DataHandler.getData("source-category")[0].values.rawvalues;
-    // console.log(this.DataHandler.getData("source-category"));
     const destinationCategory = this.DataHandler.getData("destination-category")[0].values.rawvalues;
-    // console.log(this.DataHandler.getData("destination-category"));
     const flowWeight = this.DataHandler.getData("flow-weight")[0].values.rawvalues;
-    // console.log(this.DataHandler.getData("flow-weight"));
 
     const columnSource = 'data.addColumn("string", "Source");' + CR;
     const columnDest = 'data.addColumn("string", "Destination");' + CR;
@@ -36,8 +37,33 @@ class OptionsSankeyBuilder {
   }
 
   initChart() {
-    const init = 'var chart = new google.visualization.Sankey(document.getElementById("container")); chart.draw(data);}';
+    const init = 'var chart = new google.visualization.Sankey(document.getElementById("container")); chart.draw(data, options);}';
     return init;
+  }
+
+  buildChartOptions() {
+    const options = {
+      sankey: {
+        node: {
+          label: this.SettingsHandler.getAsFont("label-font"),
+          labelPadding: this.SettingsHandler.getAsInt("label-padding"),
+          nodePadding: this.SettingsHandler.getAsInt("node-padding"),
+          width: this.SettingsHandler.getAsInt("node-size"),
+          color: this.SettingsHandler.getAsColor("node-color")
+        },
+        link: {
+          color:{
+            fill: this.SettingsHandler.getAsColor("link-color"),
+            fillOpacity: this.SettingsHandler.getAsInt("link-opacity"),
+            stroke: this.SettingsHandler.getAsColor("stroke-color"),
+            strokeWidth: this.SettingsHandler.getAsInt("stroke-width")
+          },
+          colorMode: this.SettingsHandler.getAsState("link-color-mode")
+        }
+      }
+    };
+
+    return options;
   }
 }
 

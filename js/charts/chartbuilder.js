@@ -10,7 +10,7 @@ class ChartBuilder {
     this.serviceInfo = serviceInfo;
     const type = serviceInfo.getVisualizationType(renderInfo.id);
     const OptionsBuilder = require("./" + type + "/optionsbuilder");
-    this.builder = new OptionsBuilder(renderInfo);
+    this.builder = new OptionsBuilder(this.serviceInfo, renderInfo);
   }
 
   build() {
@@ -26,7 +26,7 @@ class ChartBuilder {
     let height = this.renderInfo.size.height;
     let width = this .renderInfo.size.width;
 
-    let container = '<div id="container" style="width: 900px; height: 300px;"></div>'
+    let container = '<div id="container" style="width:' + width + 'px;height:' + height + 'px;"></div>';
 
     return container;
   }
@@ -40,6 +40,9 @@ class ChartBuilder {
 
     const dataTable = this.builder.buildData();
     chartJs = chartJs.concat(dataTable);
+
+    const options = JSON.stringify(this.builder.buildChartOptions());
+    chartJs = chartJs.concat('var options = ' + options + ';' + CR);
 
     const initChart = this.builder.initChart();
     chartJs = chartJs.concat(initChart);
