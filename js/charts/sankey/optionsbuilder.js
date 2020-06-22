@@ -9,7 +9,8 @@ class OptionsSankeyBuilder {
     this.DataHandler = new DataHandler(renderInfo);
     const type = serviceInfo.getVisualizationType(renderInfo.id);
     const defaultSettings = require("./settings").settings;
-    this.SettingsHandler = new SettingsHandler(defaultSettings, renderInfo.settings)
+    this.SettingsHandler = new SettingsHandler(defaultSettings, renderInfo.settings);
+    this.renderInfo = renderInfo;
   }
 
   buildData() {
@@ -43,6 +44,8 @@ class OptionsSankeyBuilder {
 
   buildChartOptions() {
     const options = {
+      width: this.renderInfo.size.width - 10,
+      height : this.renderInfo.size.height - 10,
       sankey: {
         node: {
           label: this.SettingsHandler.getAsFont("label-font"),
@@ -54,7 +57,6 @@ class OptionsSankeyBuilder {
         link: {
           color:{
             fill: this.SettingsHandler.getAsColor("link-color"),
-            fillOpacity: this.SettingsHandler.getAsInt("link-opacity"),
             stroke: this.SettingsHandler.getAsColor("stroke-color"),
             strokeWidth: this.SettingsHandler.getAsInt("stroke-width")
           },

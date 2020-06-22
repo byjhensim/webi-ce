@@ -24,7 +24,7 @@ exports.feeds = {
       id: "flow-weight",
       name: "Flow Weight",
       description: "Value of connections between source and destination",
-      type: "measures",
+      type: "measure",
       min: "1",
       max: "1"
     }
