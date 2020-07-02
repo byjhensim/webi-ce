@@ -65,7 +65,7 @@ class OptionsSankeyBuilder {
     const catRawData = this.DataHandler.getData("source-destination")
     const valRawData = this.DataHandler.getData("flow-weight")
     const data = []
-    let tempData = []
+    let value = []
 
     //Extracting data from two column each iteration
     for (let i = 0; i < catRawData.length - 1; i++) {
@@ -77,29 +77,26 @@ class OptionsSankeyBuilder {
         let source = SourceColumn[row]
         let dest = DestColumn[row]
 
-        if (!tempData[source]) {
-          tempData[source] = {}
+        if (!value[source]) {
+          value[source] = {}
         }
-        if (!tempData[source][dest]) {
-          tempData[source][dest] = 0;
+        if (!value[source][dest]) {
+          value[source][dest] = 0;
         }
 
-        tempData[source][dest] += valRawData[0].values.rawvalues[row];
+        value[source][dest] += valRawData[0].values.rawvalues[row];
         }
 
       //Populating two-column extracted data into final formats
-      let sMember = this.DataHandler.distinct(SourceColumn)
-      let dMember = this.DataHandler.distinct(DestColumn)
+      let setSource = new Set(SourceColumn);
+      let setDest = new Set(DestColumn);
 
-      for (let k = 0; k < sMember.length; k++) {
-        for (let l = 0; l < dMember.length; l++) {
-          if (tempData[sMember[k]][dMember[l]]) {
-            data.push([sMember[k], dMember[l], tempData[sMember[k]][dMember[l]]]);
-          }
-        }
+      for (let s of setSource) for (let d of setDest) if (value[s][d]) {
+        data.push([s, d, value[s][d]]);
       }
+
       //Clearing tempData for the next two-column iteration
-      tempData = []
+      value = []
     }
 
   return data;

@@ -31,18 +31,7 @@ class DataHandler {
     }
     return data;
   }
-
-distinct(arr) {
-    var values = [];
-    for (var i = 0; i < arr.length; i++) {
-      var value = arr[i];
-      if (values.indexOf(value) === -1) {
-        values.push(value);
-      }
-    }
-    return values;
-  };
-
+  
 }
 
 module.exports = DataHandler;
