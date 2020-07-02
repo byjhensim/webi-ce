@@ -3,27 +3,18 @@
 exports.feeds = {
   feeds:[
     {
-      id: "source-category",
-      name: "Source Category",
-      description: "Dataset for source category",
+      id: "source-destination",
+      name: "Source and Destination",
+      description: "The flow is oneway from top to bottom categories",
       axis:"0",
       type: "dimension",
-      min: "1",
-      max: "1"
-    },
-    {
-      id: "destination-category",
-      name: "Destination Category",
-      description: "Dataset for destination category",
-      axis:"0",
-      type: "dimension",
-      min: "1",
-      max: "1"
+      min: "2",
+      max: "5"
     },
     {
       id: "flow-weight",
       name: "Flow Weight",
-      description: "Value of connections between source and destination",
+      description: "Value of journey from source to destination",
       type: "measure",
       min: "1",
       max: "1"

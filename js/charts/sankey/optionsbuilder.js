@@ -5,7 +5,7 @@ const SettingsHandler = require("../settingshandler");
 const CR = String.fromCharCode(13);
 
 class OptionsSankeyBuilder {
-  constructor(serviceInfo,renderInfo){
+  constructor(serviceInfo, renderInfo) {
     this.DataHandler = new DataHandler(renderInfo);
     const type = serviceInfo.getVisualizationType(renderInfo.id);
     const defaultSettings = require("./settings").settings;
@@ -13,25 +13,17 @@ class OptionsSankeyBuilder {
     this.renderInfo = renderInfo;
   }
 
-  buildData() {
-    let dataTable = '';
-    const sourceCategory = this.DataHandler.getData("source-category")[0].values.rawvalues;
-    const destinationCategory = this.DataHandler.getData("destination-category")[0].values.rawvalues;
-    const flowWeight = this.DataHandler.getData("flow-weight")[0].values.rawvalues;
+  buildDataTable() {
+    let dataTable = []
 
-    const columnSource = 'data.addColumn("string", "Source");' + CR;
-    const columnDest = 'data.addColumn("string", "Destination");' + CR;
-    const columnMeasure = 'data.addColumn("number", "Weight");' + CR;
+    //Initiating DataTable
+    const header = ["Source", "Destination", "Weight"]
+    dataTable.push(header);
 
-    dataTable = dataTable.concat(columnSource);
-    dataTable = dataTable.concat(columnDest);
-    dataTable = dataTable.concat(columnMeasure);
-
-    let rowNumber = sourceCategory.length;
-
-    for (let n=0; n < rowNumber; n++) {
-      const rowData = 'data.addRows([["' + sourceCategory[n] + '","' + destinationCategory[n] + '",' + flowWeight[n] + ']]);' + CR;
-      dataTable = dataTable.concat(rowData);
+    //Input data into DataTable
+    const data = this.transformRawData();
+    for (let row in data) {
+      dataTable.push(data[row])
     }
 
     return dataTable;
@@ -45,7 +37,7 @@ class OptionsSankeyBuilder {
   buildChartOptions() {
     const options = {
       width: this.renderInfo.size.width - 10,
-      height : this.renderInfo.size.height - 10,
+      height: this.renderInfo.size.height - 10,
       sankey: {
         node: {
           label: this.SettingsHandler.getAsFont("label-font"),
@@ -55,7 +47,7 @@ class OptionsSankeyBuilder {
           color: this.SettingsHandler.getAsColor("node-color")
         },
         link: {
-          color:{
+          color: {
             fill: this.SettingsHandler.getAsColor("link-color"),
             stroke: this.SettingsHandler.getAsColor("stroke-color"),
             strokeWidth: this.SettingsHandler.getAsInt("stroke-width")
@@ -67,6 +59,52 @@ class OptionsSankeyBuilder {
 
     return options;
   }
+
+  transformRawData() {
+    //Extracting data from multiple column in two column format, which is compatible with google sankey chart
+    const catRawData = this.DataHandler.getData("source-destination")
+    const valRawData = this.DataHandler.getData("flow-weight")
+    const data = []
+    let tempData = []
+
+    //Extracting data from two column each iteration
+    for (let i = 0; i < catRawData.length - 1; i++) {
+      let SourceColumn = catRawData[i].values.rawvalues
+      let DestColumn = catRawData[i + 1].values.rawvalues
+
+      //Extract data from two column and save in tempData
+      for (let row = 0; row < SourceColumn.length; row++) {
+        let source = SourceColumn[row]
+        let dest = DestColumn[row]
+
+        if (!tempData[source]) {
+          tempData[source] = {}
+        }
+        if (!tempData[source][dest]) {
+          tempData[source][dest] = 0;
+        }
+
+        tempData[source][dest] += valRawData[0].values.rawvalues[row];
+        }
+
+      //Populating two-column extracted data into final formats
+      let sMember = this.DataHandler.distinct(SourceColumn)
+      let dMember = this.DataHandler.distinct(DestColumn)
+
+      for (let k = 0; k < sMember.length; k++) {
+        for (let l = 0; l < dMember.length; l++) {
+          if (tempData[sMember[k]][dMember[l]]) {
+            data.push([sMember[k], dMember[l], tempData[sMember[k]][dMember[l]]]);
+          }
+        }
+      }
+      //Clearing tempData for the next two-column iteration
+      tempData = []
+    }
+
+  return data;
+  }
+///////// End of the class /////////
 }
 
 module.exports = OptionsSankeyBuilder;

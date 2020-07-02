@@ -7,10 +7,17 @@ class CustomElementServiceInfo {
     this.visualizations = [
       {
         id:"sankey",
-        name:"Google Sankey Chart",
-        description: "Visualization used to depict a flow from one set of values to another",
+        name:"Sankey Chart",
+        description: "Visualization used to depict a flow from one set of values to another.The things being connected are called nodes and the connections are called links. Sankeys are best used when you want to show a many-to-many mapping between two domains",
         type: "sankey",
         package: "sankey"
+      },
+      {
+        id:"candlestick",
+        name:"Candlestick Chart",
+        description: "A candlestick chart is used to show an opening and closing value overlaid on top of a total variance. Candlestick charts are often used to show stock value behavior.",
+        type: "candlestick",
+        package: "corechart"
       }
     ];
 

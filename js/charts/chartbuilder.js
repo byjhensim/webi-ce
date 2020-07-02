@@ -33,17 +33,22 @@ class ChartBuilder {
 
   buildChartJsCode() {
     let chartJs = '<script type="text/javascript">';
+
+    //Load Package for Sankey Chart
     let gPackage = this.serviceInfo.getVisualizationPackage(this.renderInfo.id);
     let loadChart = 'google.charts.load("current", {packages:["' + gPackage + '"], callback: drawChart});' + CR;
     chartJs = chartJs.concat(loadChart);
-    chartJs = chartJs.concat('function drawChart(){' + CR + 'var data = new google.visualization.DataTable();' + CR);
 
-    const dataTable = this.builder.buildData();
-    chartJs = chartJs.concat(dataTable);
+    //DataTable
+    const dataTable = this.builder.buildDataTable();
+    chartJs = chartJs.concat('function drawChart(){' + CR + 'var data = new google.visualization.arrayToDataTable('
+                            + JSON.stringify(dataTable) + ');' + CR);
 
+    //Options Setting
     const options = JSON.stringify(this.builder.buildChartOptions());
     chartJs = chartJs.concat('var options = ' + options + ';' + CR);
 
+    //Draw the chart
     const initChart = this.builder.initChart();
     chartJs = chartJs.concat(initChart);
     chartJs = chartJs.concat('</script>');

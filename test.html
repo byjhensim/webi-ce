@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+	<div id="container" style="width:900px;height:600px;"></div>
+	<script type="text/javascript">
+		google.charts.load("current", {packages:["sankey"], callback: drawChart});
+function drawChart(){
+var data = new google.visualization.arrayToDataTable([["Source","Destination","Weight"],["Brazil","Portugal",5],["Brazil","France",1],["Brazil","Spain",1],["Brazil","England",1],["Canada","Portugal",1],["Canada","France",5],["Canada","England",1],["Mexico","Portugal",1],["Mexico","France",1],["Mexico","Spain",5],["Mexico","England",1],["USA","Portugal",1],["USA","France",1],["USA","Spain",1],["USA","England",5],["Portugal","Angola",2],["Portugal","Senegal",1],["Portugal","Maroco",1],["Portugal","South Africa",3],["France","Angola",1],["France","Senegal",3],["France","Maroco",3],["France","South Africa",1],["France","Mali",3],["Spain","Senegal",1],["Spain","Maroco",3],["Spain","South Africa",1],["England","Angola",1],["England","Senegal",1],["England","Maroco",2],["England","South Africa",7],["South Africa","China",5],["South Africa","India",1],["South Africa","Japan",3],["Angola","China",5],["Angola","India",1],["Angola","Japan",3],["Senegal","China",5],["Senegal","India",1],["Senegal","Japan",3],["Mali","China",5],["Mali","India",1],["Mali","Japan",3],["Maroco","China",5],["Maroco","India",1],["Maroco","Japan",3]]);
+var options = {"width":890,"height":590,"sankey":{"node":{"label":{"fontName":"arial","fontSize":14,"color":"#000000ff","bold":false,"italic":true},"labelPadding":5,"nodePadding":20,"width":10,"color":null},"link":{"color":{"fill":null,"stroke":null,"strokeWidth":0},"colorMode":"gradient"}}};
+var chart = new google.visualization.Sankey(document.getElementById("container")); chart.draw(data, options);}
+	</script>
+</body>
+
+</html>
