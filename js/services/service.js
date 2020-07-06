@@ -6,6 +6,7 @@ const fs = require("fs");
 const PageBuilder = require("../charts/pagebuilder");
 const ChartBuilder = require("../charts/chartbuilder");
 const HTMLConstructor = require("../charts/htmlconstructor");
+const minifier = require('html-minifier').minify;
 
 class CustomElementService {
   constructor() {
@@ -49,8 +50,9 @@ class CustomElementService {
     const htmlConstructor = new HTMLConstructor(pBuilder, cBuilder);
 
     const render = htmlConstructor.construct();
+    const options = require("../utils/minifier").options;
 
-    return render;
+    return minifier(render, options);
   }
 
 }
