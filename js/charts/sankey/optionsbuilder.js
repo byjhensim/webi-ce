@@ -26,7 +26,7 @@ class OptionsSankeyBuilder {
       dataTable.push(data[row])
     }
 
-    return dataTable;
+    return JSON.stringify(dataTable);
   }
 
   initChart() {

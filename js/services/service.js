@@ -52,7 +52,7 @@ class CustomElementService {
     const render = htmlConstructor.construct();
     const options = require("../utils/minifier").options;
 
-    return minifier(render, options);
+    return minifier(render, options)
   }
 
 }

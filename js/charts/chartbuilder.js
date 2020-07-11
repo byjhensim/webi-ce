@@ -1,7 +1,6 @@
 "use strict"
 
 const logger = require("../utils/logger");
-const CR = String.fromCharCode(13);
 
 class ChartBuilder {
 
@@ -36,17 +35,17 @@ class ChartBuilder {
 
     //Load Package for Sankey Chart
     let gPackage = this.serviceInfo.getVisualizationPackage(this.renderInfo.id);
-    let loadChart = 'google.charts.load("current", {packages:["' + gPackage + '"], callback: drawChart});' + CR;
+    let loadChart = 'google.charts.load("current", {packages:["' + gPackage + '"], callback: drawChart});';
     chartJs = chartJs.concat(loadChart);
 
     //DataTable
     const dataTable = this.builder.buildDataTable();
-    chartJs = chartJs.concat('function drawChart(){' + CR + 'var data = new google.visualization.arrayToDataTable('
-                            + JSON.stringify(dataTable) + ');' + CR);
+    chartJs = chartJs.concat('function drawChart(){var data = new google.visualization.arrayToDataTable('
+                            + dataTable + ');');
 
     //Options Setting
     const options = JSON.stringify(this.builder.buildChartOptions());
-    chartJs = chartJs.concat('var options = ' + options + ';' + CR);
+    chartJs = chartJs.concat('var options = ' + options + ';');
 
     //Draw the chart
     const initChart = this.builder.initChart();
