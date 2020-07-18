@@ -1,6 +1,6 @@
 // Load Node js modules
 const express = require("express");
-const bodyParser = require ("body-parser");
+const bodyParser = require("body-parser");
 const os = require("os");
 
 // Load library js
@@ -8,30 +8,30 @@ const logger = require("./js/utils/logger");
 
 // App Initialization
 const app = express();
-app.use(bodyParser.json({limit:"50mb"}));
-app.use(bodyParser.urlencoded({limit:"50mb", extended:true}));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.static("public"));
 
 // CORS
-app.all('*', function (req, res, next) {
-    if (req.method === "OPTIONS") {
-        res.header("access-control-allow-credentials", "true");
-        if (req.headers["access-control-request-headers"] != null) {
-            res.header("access-control-allow-headers", "Content-Type, authorization");
-        }
-        if (req.headers["access-control-request-method"] != null) {
-            res.header("access-control-request-method", "POST, GET, OPTIONS");
-        }
-        if (req.headers["origin"] != null) {
-            res.header("access-control-allow-origin", req.headers["origin"]);
-            res.header("access-control-max-age", "86400");
-        }
+app.all("*", function (req, res, next) {
+  if (req.method === "OPTIONS") {
+    res.header("access-control-allow-credentials", "true");
+    if (req.headers["access-control-request-headers"] != null) {
+      res.header("access-control-allow-headers", "Content-Type, authorization");
     }
-    else {
-        res.header("Access-Control-Allow-Credentials", "true");
-        res.header("Access-Control-Allow-Origin", req.headers["origin"]);
+    if (req.headers["access-control-request-method"] != null) {
+      res.header("access-control-request-method", "POST, GET, OPTIONS");
     }
-    next();
- });
+    if (req.headers["origin"] != null) {
+      res.header("access-control-allow-origin", req.headers["origin"]);
+      res.header("access-control-max-age", "86400");
+    }
+  } else {
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Origin", req.headers["origin"]);
+  }
+  next();
+});
 
 // Setting up route
 const indexRouter = require("./js/routes/index");

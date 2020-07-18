@@ -1,12 +1,12 @@
-"use strict"
+"use strict";
 
 class HTMLConstructor {
-  constructor(pageBuilder, chartBuilder){
+  constructor(pageBuilder, chartBuilder) {
     this.pageBuilder = pageBuilder;
     this.chartBuilder = chartBuilder;
   }
 
-  construct(){
+  construct() {
     let html = "";
 
     html = html.concat(this.pageBuilder.buildHeaderPage());
@@ -16,6 +16,5 @@ class HTMLConstructor {
     return html;
   }
 }
-
 
 module.exports = HTMLConstructor;
