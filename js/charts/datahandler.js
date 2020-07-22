@@ -41,8 +41,6 @@ class DataHandler {
         const groupData = [];
         for (const i in raw) {
           const data = raw[i].values.rawvalues;
-          console.log(feedId);
-          console.log(data);
           groupData.push(data);
         }
         this.mapData.set(feedId, groupData);

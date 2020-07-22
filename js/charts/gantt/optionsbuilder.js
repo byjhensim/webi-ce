@@ -175,9 +175,9 @@ class OptionsGanttBuilder {
       //Inserting the data
       let row = `['${taskId[i]}','${taskName[i]}',${
         resourceId == null ? "" : "'" + resourceId[i] + "',"
-      }${start == null ? "" : start[i] + ","}${
-        end == null ? "" : end[i] + ","
-      }${duration == null ? "" : duration[i] + ","}${completeness[i]}${
+      }${start == null ? null + "," : start[i] + ","}${
+        end == null ? null + "," : end[i] + ","
+      }${duration == null ? null + "," : duration[i] + ","}${completeness[i]}${
         dependencies == null
           ? "," + null
           : `${
