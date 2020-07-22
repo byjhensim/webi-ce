@@ -119,6 +119,12 @@ class OptionsGanttBuilder {
       strokeWidth: this.SettingsHandler.getAsInt("critical-stroke-width"),
     };
 
+    //Configure the label
+    const labelMaxWidth = this.SettingsHandler.getAsInt("label-width");
+    const labelStyle = {
+      fontSize: this.SettingsHandler.getAsInt("label-size"),
+    };
+
     //Configure options setting for arrow style
     const arrow = {
       angle: this.SettingsHandler.getAsInt("arrow-angle"),
@@ -147,6 +153,8 @@ class OptionsGanttBuilder {
       innerGridTrack: innerGridTrack,
       trackHeight: trackHeight,
       barHeight: barHeight,
+      labelMaxWidth: labelMaxWidth,
+      labelStyle: labelStyle,
     };
 
     options.gantt = gantt;
