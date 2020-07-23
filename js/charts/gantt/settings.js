@@ -19,23 +19,23 @@ const plotarea = {
               description:
                 "If set true any arrows on the critical path will be styled differently. Otherwise, it will be styled with Arrow settings",
               type: "boolean",
-              default: "true",
+              default: "true"
             },
             {
               id: "critical-stroke",
               name: "Stroke color",
               description: "Set the color of the critical path stroke",
               type: "color",
-              default: "#e64a19",
+              default: "#e64a19"
             },
             {
               id: "critical-stroke-width",
               name: "Stroke width",
               description: "Settings for the line width",
               type: "integer",
-              default: "4",
-            },
-          ],
+              default: "4"
+            }
+          ]
         },
         {
           name: "Label",
@@ -46,7 +46,7 @@ const plotarea = {
               name: "Label Size",
               description: "The size of the font for task label",
               type: "integer",
-              default: "10",
+              default: "10"
             },
             {
               id: "label-width",
@@ -54,9 +54,9 @@ const plotarea = {
               description:
                 "Maximum amount of space allowed for each task label",
               type: "integer",
-              default: "300",
-            },
-          ],
+              default: "300"
+            }
+          ]
         },
         {
           name: "Arrow",
@@ -67,21 +67,21 @@ const plotarea = {
               name: "Arrow angle",
               description: "The angle of the head of the arrow",
               type: "integer",
-              default: "45",
+              default: "45"
             },
             {
               id: "arrow-color",
               name: "Arrow color",
               description: "The color of the arrows",
               type: "color",
-              default: "#2bbd26",
+              default: "#2bbd26"
             },
             {
               id: "arrow-width",
               name: "Arrow width",
               description: "The width of the arrows",
               type: "integer",
-              default: "4",
+              default: "4"
             },
             {
               id: "arrow-radius",
@@ -89,9 +89,9 @@ const plotarea = {
               description:
                 "The radius for defining the curve of the arrow between two tasks",
               type: "integer",
-              default: "0",
-            },
-          ],
+              default: "0"
+            }
+          ]
         },
         {
           name: "Grid",
@@ -103,34 +103,34 @@ const plotarea = {
               name: "Grid Size",
               description: "The height of the track for each task ",
               type: "integer",
-              default: "15",
+              default: "15"
             },
             {
               id: "horiz-width",
               name: "Line width",
               description: "The width of the inner horizontal grid lines",
               type: "integer",
-              default: "1",
+              default: "1"
             },
             {
               id: "horiz-color",
               name: "Line color",
               description: "The color of the inner horizontal grid lines",
               type: "color",
-              default: "",
+              default: ""
             },
             {
               id: "grid-color",
               name: "Grid Color",
               description: "The fill color of the inner grid track",
               type: "color",
-              default: "",
-            },
-          ],
-        },
-      ],
-    },
-  ],
+              default: ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
 };
 
 ganttSettings.regions.push(plotarea);
